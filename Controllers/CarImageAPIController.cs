@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarRent.DTOs;
+﻿using CarRent.DTOs;
 using CarRent.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +23,6 @@ namespace CarRent.Controllers
             var image = await _carImageRepository.GetImageByIdAsync(id);
             if (image == null) return NotFound($"Image with ID {id} not found.");
 
-            // Преобразуем изображение обратно в формат Base64
             image.ImageBase64 = image.GetImageBase64();
 
             return Ok(image);
@@ -40,12 +36,9 @@ namespace CarRent.Controllers
             var images = await _carImageRepository.GetImagesByCarIdAsync(carId);
             if (!images.Any()) return NotFound($"No images found for Car ID {carId}.");
 
-            // Преобразуем изображения обратно в формат Base64
             foreach (var image in images)
-            {
                 image.ImageBase64 = image.GetImageBase64();
-            }
-
+            
             return Ok(images);
         }
 
@@ -56,7 +49,6 @@ namespace CarRent.Controllers
             if (carImageDto.CarId <= 0) return BadRequest("Invalid car ID.");
             if (string.IsNullOrEmpty(carImageDto.ImageBase64)) return BadRequest("Image cannot be null or empty.");
 
-            // Декодируем изображение из Base64
             carImageDto.Image = Convert.FromBase64String(carImageDto.ImageBase64);
             carImageDto.Id = 0;
 
@@ -72,7 +64,6 @@ namespace CarRent.Controllers
             if (carImageDto.CarId <= 0) return BadRequest("Invalid car ID.");
             if (string.IsNullOrEmpty(carImageDto.ImageBase64)) return BadRequest("Image cannot be null or empty.");
 
-            // Декодируем изображение из Base64
             carImageDto.Image = Convert.FromBase64String(carImageDto.ImageBase64);
 
             var existingImage = await _carImageRepository.GetImageByIdAsync(id);

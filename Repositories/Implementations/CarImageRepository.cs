@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarRent.Data;
+﻿using CarRent.Data;
 using CarRent.DTOs;
 using CarRent.Models;
 using Microsoft.EntityFrameworkCore;
