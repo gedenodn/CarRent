@@ -11,6 +11,5 @@
         public string PaymentStatus { get; set; }
         public DateTime PaymentDate { get; set; }
     }
-
 }
 
